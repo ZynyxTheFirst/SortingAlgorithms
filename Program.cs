@@ -1,6 +1,5 @@
 ﻿using System;
 
-#pragma warning disable IDE1006
 class Program
 {
     readonly Person[] people = { new Person("Z", 9), new Person("X", 4), new Person("Y", 1) };
@@ -12,12 +11,12 @@ class Program
     }
     void Run()
     {
-        llist.add(15);
-        llist.add(10);
-        llist.add(5);
-        llist.add(20);
-        llist.add(3);
-        llist.printList();
+        llist.Add(15);
+        llist.Add(10);
+        llist.Add(5);
+        llist.Add(20);
+        llist.Add(3);
+        llist.PrintList();
         while (true)
         {
             string input = Console.ReadLine().ToLower();
@@ -29,31 +28,31 @@ class Program
                 case "selectsort": // Complexity O(n^2)
                 case "s":
                 case "name":
-                    Person.selectSort(people);
-                    Person.printArray(people);
+                    Person.SelectSort(people);
+                    Person.PrintArray(people);
                     break;
                 case "bubblesort": // Complexity worst: O(n^n) best: O(n)
                 case "b":
                 case "age":
-                    Person.bubbleSort(people);
-                    Person.printArray(people);
+                    Person.BubbleSort(people);
+                    Person.PrintArray(people);
                     break;
                 case "gnomesort": // Complexity O(n^2)
                 case "g":
                 case "gnome":
-                    Person.gnomeSort(people, 3);
-                    Person.printArray(people);
+                    Person.GnomeSort(people, 3);
+                    Person.PrintArray(people);
                     break;
                 case "bogosort": //Complexity worst: O(∞) avarage: O(n*n!) best: O(n)
                 case "bogo":
-                    Person.BogoSort.bogosort(people, people.Length);
-                    Person.printArray(people);
+                    Person.BogoSort.Bogosort(people, people.Length);
+                    Person.PrintArray(people);
                     break;
                 case "mergesort": // Complexity O(n Log n)
                 case "m":
                 case "merge":
-                    llist.head = llist.mergeSort(llist.head);
-                    llist.printList();
+                    llist.head = llist.MergeSort(llist.head);
+                    llist.PrintList();
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -66,14 +65,14 @@ class Program
 }
 class Person
 {
-    public string name;
-    public int age;
+    private readonly string name;
+    private readonly int age;
     public Person(string name, int age)
     {
         this.name = name;
         this.age = age;
     }
-    public static void selectSort(Person[] people)
+    public static void SelectSort(Person[] people)
     {
         int pos_min;
         Person temp;
@@ -95,7 +94,7 @@ class Person
             }
         }
     }
-    public static void bubbleSort(Person[] people)
+    public static void BubbleSort(Person[] people)
     {
         int n = people.Length;
         for (int i = 0; i < n - 1; i++)
@@ -107,7 +106,7 @@ class Person
                     people[j + 1] = temp;
                 }
     }
-    public static void gnomeSort(Person[] people, int n)
+    public static void GnomeSort(Person[] people, int n)
     {
         int index = 0;
 
@@ -128,7 +127,7 @@ class Person
         }
         return;
     }
-    public static void printArray(Person[] people)
+    public static void PrintArray(Person[] people)
     {
         int n = people.Length;
         for (int i = 0; i < n; ++i)
@@ -143,7 +142,7 @@ class Person
             lhs = rhs;
             rhs = temp;
         }
-        public static bool isSorted(Person[] people, int length)
+        public static bool IsSorted(Person[] people, int length)
         {
             int i = 0;
             while (i < length - 1)
@@ -154,16 +153,16 @@ class Person
             }
             return true;
         }
-        public static void shuffle(Person[] people, int length)
+        public static void Shuffle(Person[] people, int length)
         {
             Random rnd = new Random();
             for (int i = 0; i < length; i++)
                 Swap(ref people[i], ref people[rnd.Next(0, length)]);
         }
-        public static void bogosort(Person[] people, int length)
+        public static void Bogosort(Person[] people, int length)
         {
-            while (!isSorted(people, length))
-                shuffle(people, length);
+            while (!IsSorted(people, length))
+                Shuffle(people, length);
         }
     }
 }
@@ -181,53 +180,54 @@ public class LinkedList
 
         }
     }
-    public void add(int new_data)
+    public void Add(int new_data)
     {
-        Node new_node = new Node(new_data);
-
-        new_node.next = head;
+        Node new_node = new Node(new_data)
+        {
+            next = head
+        };
 
         head = new_node;
     }
-    private Node sortedMerge(Node a, Node b)
+    private Node SortedMerge(Node a, Node b)
     {
-        Node result = null;
         if (a == null)
             return b;
         if (b == null)
             return a;
 
+        Node result;
         if (a.data <= b.data)
         {
             result = a;
-            result.next = sortedMerge(a.next, b);
+            result.next = SortedMerge(a.next, b);
         }
         else
         {
             result = b;
-            result.next = sortedMerge(a, b.next);
+            result.next = SortedMerge(a, b.next);
         }
         return result;
     }
-    public Node mergeSort(Node h)
+    public Node MergeSort(Node h)
     {
         if (h == null || h.next == null)
         {
             return h;
         }
-        Node middle = getMiddle(h);
+        Node middle = GetMiddle(h);
         Node nextofmiddle = middle.next;
 
         middle.next = null;
 
-        Node left = mergeSort(h);
+        Node left = MergeSort(h);
 
-        Node right = mergeSort(nextofmiddle);
+        Node right = MergeSort(nextofmiddle);
 
-        Node sortedlist = sortedMerge(left, right);
+        Node sortedlist = SortedMerge(left, right);
         return sortedlist;
     }
-    private Node getMiddle(Node h)
+    private Node GetMiddle(Node h)
     {
         // Base case 
         if (h == null)
@@ -246,7 +246,7 @@ public class LinkedList
         }
         return slowptr;
     }
-    public void printList()
+    public void PrintList()
     {
         Node n = head;
         while (n != null)
