@@ -129,8 +129,7 @@ class Person
     }
     public static void PrintArray(Person[] people)
     {
-        int n = people.Length;
-        for (int i = 0; i < n; ++i)
+        for (int i = 0; i < people.Length; ++i)
             Console.WriteLine(people[i].name + "," + people[i].age);
     }
     public class BogoSort
