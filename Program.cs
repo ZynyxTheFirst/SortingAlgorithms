@@ -17,6 +17,7 @@ class Program
         llist.Add(20);
         llist.Add(3);
         llist.PrintList();
+        Person.PrintArray(people);
         while (true)
         {
             string input = Console.ReadLine().ToLower();
@@ -25,30 +26,30 @@ class Program
                 case "exit":
                     Environment.Exit(0);
                     break;
-                case "selectsort": // Complexity O(n^2)
+                case "selectsort":
                 case "s":
                 case "name":
                     Person.SelectSort(people);
                     Person.PrintArray(people);
                     break;
-                case "bubblesort": // Complexity worst: O(n^n) best: O(n)
+                case "bubblesort":
                 case "b":
                 case "age":
                     Person.BubbleSort(people);
                     Person.PrintArray(people);
                     break;
-                case "gnomesort": // Complexity O(n^2)
+                case "gnomesort":
                 case "g":
                 case "gnome":
                     Person.GnomeSort(people, 3);
                     Person.PrintArray(people);
                     break;
-                case "bogosort": //Complexity worst: O(∞) avarage: O(n*n!) best: O(n)
+                case "bogosort":
                 case "bogo":
                     Person.BogoSort.Bogosort(people, people.Length);
                     Person.PrintArray(people);
                     break;
-                case "mergesort": // Complexity O(n Log n)
+                case "mergesort":
                 case "m":
                 case "merge":
                     llist.head = llist.MergeSort(llist.head);
@@ -129,6 +130,7 @@ class Person
     }
     public static void PrintArray(Person[] people)
     {
+        Console.WriteLine("Array");
         for (int i = 0; i < people.Length; ++i)
             Console.WriteLine(people[i].name + "," + people[i].age);
     }
@@ -228,7 +230,6 @@ public class LinkedList
     }
     private Node GetMiddle(Node h)
     {
-        // Base case 
         if (h == null)
             return h;
         Node fastptr = h.next;
@@ -247,6 +248,7 @@ public class LinkedList
     }
     public void PrintList()
     {
+        Console.WriteLine("Linked List");
         Node n = head;
         while (n != null)
         {
